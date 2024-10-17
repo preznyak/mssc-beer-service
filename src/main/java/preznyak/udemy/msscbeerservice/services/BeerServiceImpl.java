@@ -36,6 +36,7 @@ public class BeerServiceImpl implements BeerService {
 
     @Override
     public BeerDto saveNewBeer(BeerDto beerDto) {
+        System.out.println("I was called");
         return beerMapper.beerToBeerDto(beerRepository.save(beerMapper.beerDtoToBeer(beerDto)));
     }
 
@@ -94,5 +95,12 @@ public class BeerServiceImpl implements BeerService {
         }
 
         return beerPagedList;
+    }
+
+    @Cacheable(cacheNames = "beerUpcCache")
+    @Override
+    public BeerDto getByUpc(String upc) {
+        System.out.println("I was called");
+        return beerMapper.beerToBeerDto(beerRepository.findByUpc(upc));
     }
 }
